@@ -163,19 +163,66 @@ Deploy Couchbase
 
 Define a bucket in Couchbase
 
-* $ensure               = 'present',
+* $title
+    * _string_
+    * Name of the bucket.
+* $ensure
+    * _string_ (present|absent)
+    * Default is 'present'
+    * Whether to create or remove bucket named $title. Will __delete__ bucket if set to 'absent', but any other value will translate to 'present'.
     * TODO: May be replaced with present=>'true|false'
-* $flush                = 0,
-* $replica              = 0,
-* $enable_index_replica = 0,
-* $ramsize              = 100,
-* $port                 = 11211,
-* $type                 = 'couchbase',
-* $password             = undef,
-* $couchbase_etc        = $::couchbase::etc_path,
+* $flush
+    * _integer_ (but treated as string)
+    * Default is 0
+    * Enable/disable flush. Passed to "--enable-flush=" parameter during bucket create.
+* $replica
+    * _integer_ (but treated as string)
+    * Default is 0
+    * Replica count. Passed to "--bucket-replica=" parameter during bucket create.
+* $enable_index_replica
+    * _integer_ (but treated as string)
+    * Default is 0
+    * Enables number of replicas. Passed to "--enable-index-replica=" parameter during bucket create.
+* $ramsize
+    * _integer_
+    * Default is 100
+    * Memory size, in MB, allocated to bucket.
+* $port
+    * _integer_
+    * Default is 11211
+    * "TCP port 11211 with SASL authentication, or a dedicated port with no password". Passed to "--bucket-port=" during bucket create.
+* $type
+    * _string_ (couchbase|memcached)
+    * Default is 'couchbase'
+    * Type of bucket, passed to "--bucket-type=" during bucket create. Cannot be changed after bucket is created.
+* $password
+    * _string_
+    * Default is none.
+    * Bucket-specific SASL password. This is an optional parameter passed to "--bucket-password=" during bucket create.
+* $couchbase_etc
+    * _string_
+    * Defaults to value of $etc_path in ::couchbase which is determined automatically based on operating system. ('/opt/couchbase/etc/'|'C:/Program Files/Couchbase/Server/etc/')
+    * Full path to Couchbase's /etc/ directory.
+
 #### ::couchbase::cli
 
 Run the couchbase-cli[.exe] command with arguments.
+
+* $action        = $title,
+* $creates       = undef,
+* $exec_cwd      = undef,
+* $exec_title    = undef,
+* $exec_loglevel = 'notice',
+* $onlyif        = undef,
+* $parameters    = '',
+* $refreshonly   = false,
+* $returns       = 0,
+* $tries         = $::couchbase::tries,
+* $try_sleep     = $::couchbase::try_sleep,
+* $unless        = undef,
+* $cli           = undef,
+* $username      = $::couchbase::cluster_username,
+* $password      = $::couchbase::cluster_password,
 
 #### ::couchbase::hostinit
 
