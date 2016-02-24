@@ -25,7 +25,7 @@ class couchbase::package(
       $_install_options = $install_options
       $_package_provider = pick($package_provider, 'rpm')
       $_tempdir = pick($tempdir, '/tmp/')
-      $_package_file = pick($package_file, 'couchbase-server-enterprise_4.0.0-centos6.x86_64.rpm') #lint:ignore:80chars
+      $_package_file = pick($package_file, 'couchbase-server-enterprise-4.0.0-centos6.x86_64.rpm') #lint:ignore:80chars
       $_wget_source = pick($wget_source, 'http://packages.couchbase.com/releases/4.0.0/couchbase-server-enterprise-4.0.0-centos6.x86_64.rpm') #lint:ignore:80chars
     }
     default: { fail("[${name}] Unsupported OS!") }

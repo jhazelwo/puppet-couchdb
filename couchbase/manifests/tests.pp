@@ -8,6 +8,15 @@
 class couchbase::tests {
   class { '::couchbase':
     cluster_ramsize  => '512',
+    buckets => {
+      'default' => { ensure => 'absent'},
+      'prod'    => {
+        ensure   => 'present',
+        ramsize  => 123,
+        flush    => 0,
+        password => 'hunter2',
+      }
+    }
   }
 }
 
