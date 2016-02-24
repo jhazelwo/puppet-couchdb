@@ -20,17 +20,16 @@ describe 'couchbase' do
         let(:facts) do
           facts
         end
-
-        context 'without any parameters' do
-          it { is_expected.to compile.with_all_deps }
-
-          it { is_expected.to contain_class('couchbase::params') }
-          it { is_expected.to contain_class('couchbase::install').that_comes_before('couchbase::config') }
-          it { is_expected.to contain_class('couchbase::config') }
-          it { is_expected.to contain_class('couchbase::service').that_subscribes_to('couchbase::config') }
-
-          it { is_expected.to contain_service('couchbase') }
-          it { is_expected.to contain_package('couchbase').with_ensure('present') }
+        context 'couchbase class without any parameters error' do
+          it { expect { is_expected.to contain_class('couchbase') }.to raise_error(Puppet::Error, /Must pass /) }
+        end
+        context 'couchbase class with basic parameters' do
+          let(:params) do
+            {
+              'package_file' => 'couchbase-server-enterprise-4.0.0-centos6.x86_64.rpm',
+              'cluster_ramsize' => '512',
+            }
+          end
         end
       end
     end
