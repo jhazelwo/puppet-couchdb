@@ -78,7 +78,33 @@ For normal cases, you can just pass [OS] and it'll only tear it down if it doesn
 
 ## Reference
 
-Here, list the classes, types, providers, facts, etc contained in your module. This section should include all of the under-the-hood workings of your module so people know what the module is touching on their system but don't need to mess with things. (We are working on automating this section!)
+#### ::couchbase
+*  $cluster_ramsize: __required__ Cluster's RAM size in MB as int.
+*  $cluster_username: Username to auth with on cluster.
+*  $cluster_password: Password to auth with on cluster.
+*  $cluster_port: Cluster's port, default is '8091'
+*  $cluster_host: Cluster's host, usually just 'localhost'
+*  $index_path: Full path to 'nodeindex' in Couchbase's base directory
+*  $data_path: Full path to 'nodedata' in Couchbase's base directory
+*  $buckets: A hash of the buckets you want to manage.
+*  $try_sleep: Passed to Couchbase::Cli Exec[] calls.
+*  $tries: Passed to Couchbase::Cli Exec[] calls.
+*  $service_ensure: (running|stopped) is passed to service declaration in Couchbase::Service
+*  $package_file: (optional override) Name of install file, like "couchbase-foo-bar.1.2.3.exe"
+*  $package_ensure: (installed|absent) is passed to package declaration in Couchbase::Package
+*  $package_temp_dir: Full path to a good temporary directory to house the install file.
+*  $package_iss_file: [WINDOWS] Name (without path) of the response file InstallShield uses to install Coucbbase headlessly.
+*  $package_provider: (optional override) Passed to package declaration in Couchbase::Package and will select windows or rpm automatically.
+*  $package_install_options: (optional override) Passed to package declaration in Couchbase::Package and will default to correct values automatically.
+*  $wget_source: (optional override) Defaults automatically to the download URL on packages.couchbase.com
+*  $file_source_base: _decomed_
+
+#### ::couchbase::bucket
+#### ::couchbase::cli
+#### ::couchbase::hostinit
+#### ::couchbase::package
+#### ::couchbase::service
+#### ::couchbase::statefile
 
 ## Limitations
 
