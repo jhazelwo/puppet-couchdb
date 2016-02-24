@@ -13,4 +13,7 @@
 .yardoc
 coverage
 .DS_Store
-
+*.exe
+*.rpm
+*.tar
+*.gz
