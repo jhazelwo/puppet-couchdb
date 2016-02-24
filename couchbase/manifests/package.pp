@@ -9,7 +9,7 @@ class couchbase::package(
   $file_source_base = $::couchbase::file_source_base,
   $wget_source      = $::couchbase::wget_source,
 ){
-  include wget
+  include '::wget'
 
   case $::kernel {
     'windows': {
