@@ -12,7 +12,6 @@
 #
 #
 class couchbase(
-  $package_file,
   $cluster_ramsize,
 
   $cluster_username = 'Administrator',
@@ -30,11 +29,13 @@ class couchbase(
 
   $service_ensure = 'running',
 
+  $package_file = undef,
   $package_ensure = 'installed',
   $package_temp_dir = '/tmp/',
   $package_iss_file = 'couchbase400.iss',
   $package_provider = undef,
   $package_install_options = undef,
+  $wget_source = undef,
 
   $file_source_base = 'puppet:///modules/couchbase/',
 ) {

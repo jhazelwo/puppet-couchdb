@@ -26,7 +26,6 @@ describe 'couchbase' do
         context 'couchbase class with basic parameters' do
           let(:params) do
             {
-              'package_file' => 'couchbase-server-enterprise-4.0.0-centos6.x86_64.rpm',
               'cluster_ramsize' => '512',
             }
           end
@@ -40,6 +39,7 @@ describe 'couchbase' do
           it { is_expected.to contain_exec('cluster-init') }
           it { is_expected.to contain_exec('couchbase::hostinit') }
           it { is_expected.to contain_package('couchbase-server') }
+          it { is_expected.to contain_exec('wget-couchbase') }
           it { is_expected.to contain_service('couchbase-server') }
         end
       end
