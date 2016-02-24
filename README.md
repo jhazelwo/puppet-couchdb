@@ -79,6 +79,9 @@ For normal cases, you can just pass [OS] and it'll only tear it down if it doesn
 ## Reference
 
 #### ::couchbase
+
+Deploy Couchbase
+
 *  $cluster_ramsize:
     * __required__
     * _integer_
@@ -131,26 +134,99 @@ For normal cases, you can just pass [OS] and it'll only tear it down if it doesn
     * _string_, (installed|absent)
     * Default is 'installed'
     * Passed to package declaration in Couchbase::Package
-*  $package_temp_dir: Full path to a good temporary directory to house the install file. You should override this on Windows.
-*  $package_iss_file: __WINDOWS__ (optional override) Name (without path) of the response file InstallShield uses to install Coucbbase headlessly.
-*  $package_provider: (optional override) Passed to package declaration in Couchbase::Package and will select windows or rpm automatically.
-*  $package_install_options: (optional override) Passed to package declaration in Couchbase::Package and will default to correct values automatically.
-*  $wget_source: (optional override) Defaults automatically to the download URL on packages.couchbase.com
-*  $file_source_base: _decomed_
+    * TODO: May be replaced with present=>'true|false'
+*  $package_temp_dir:
+    * _string_
+    * Default is automatically 'c:/' or '/tmp/'
+    * Full path to a good temporary directory to house the install file. __You should override this on Windows__ because 'c:/' isn't a good temporary folder.
+*  $package_iss_file:
+    * __WINDOWS__  
+    * _string_
+    * Default is 'couchbase400.iss'
+    * Name (without path) of the response file InstallShield uses to install Coucbbase headlessly.
+*  $package_provider:
+    * _string_
+    * Default is automatically 'windows' or 'rpm'.
+    * Passed to the package declaration in Couchbase::Package.
+*  $package_install_options:
+    * _string_ or _list_
+    * Default is automatic depending on OS.
+    * Passed to the package declaration in Couchbase::Package
+*  $wget_source:
+    * _string_
+    * Default is automatic depending on OS.
+    * Full URL (including file name) to get the .exe or .rpm install file.
+*  $file_source_base:
+    * _decomed_
 
 #### ::couchbase::bucket
+
+Define a bucket in Couchbase
+
+* $ensure               = 'present',
+    * TODO: May be replaced with present=>'true|false'
+* $flush                = 0,
+* $replica              = 0,
+* $enable_index_replica = 0,
+* $ramsize              = 100,
+* $port                 = 11211,
+* $type                 = 'couchbase',
+* $password             = undef,
+* $couchbase_etc        = $::couchbase::etc_path,
 #### ::couchbase::cli
+
+Run the couchbase-cli[.exe] command with arguments.
+
 #### ::couchbase::hostinit
+
+Execute node-init and cluster-init on a new Couchbase installation.
+
 #### ::couchbase::package
+
+Install the Couchbase software.
+
 #### ::couchbase::service
+
+Manage the Couchbase daemon.
+
 #### ::couchbase::statefile
+
+Define local trigger files to pass state information between CouchDB and Puppet.
+
+* $title:
+    * _string_
+    * Used in name of state file.
+* $content:
+    * _string_
+    * Default is ''
+    * Text to put in the state file.
+* $ensure:
+    * _string_ ('file'|'absent')
+    * Default is 'file'
+    * Manage or remove the state file. Will delete the file if set to 'absent', but any other value will be treated as 'file'.
+    * TODO: May be replaced with present=>'true|false'
+* $do_notify:
+    * _resource_
+    * Default is Couchbase::Cli[$title]
+    * Resource to notify when state file contents change.
+* $etc_path:
+    * _string_
+    * Default is automatic based on OS.
+    * Full path to Couchbase's /etc/ directory (ex: '/opt/couchbase/etc/')
+* $msg_prefix:
+    * _string_
+    * Default is "# Stafefile for ${title}, do not edit! \n"
+    * Text added to state file before $content
 
 ## Limitations
 
-Written for:
+Module written and tested on these operating systems:
+
 * CentOS 6
 * [Windows 2008r2](https://www.microsoft.com/en-us/download/details.aspx?id=11093)
 
+_Should work on other operating systems that [Couchbase supports](http://developer.couchbase.com/documentation/server/4.0/install/install-platforms.html) if you override the appropriate parameters (your mileage may vary)._
+
 ## Development
 
-* Closed
+* __Closed__. Not accepting issues or pull requests at this time. _2016.02-JH_
