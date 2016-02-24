@@ -61,7 +61,7 @@ class our_profiles::my_example_profile {
 }
 ```
 
-Sending custom API calls via the Couchbase CLI:
+#### Examples for sending API calls via the Couchbase CLI:
 
 * This will run `couchbase-cli foo-bar --thing=qaz`
 
@@ -87,7 +87,7 @@ couchbase::cli {'setting-alert':
 }
 ```
 
-* Pass multiple params using join() and unique $title
+* Pass multiple params using [join()](https://forge.puppetlabs.com/puppetlabs/stdlib#join) and unique $title
 ```
 $parameters = join([
   "--retrieve-cert=${retrieve_cert}",
@@ -152,11 +152,11 @@ Deploy Couchbase
 *  $index_path:
     * _string_
     * Default is automatic on CentOS:6 and Windows 2008r2
-    * Full path to 'nodeindex' in Couchbase's base directory
+    * Full path to 'nodeindex' in Couchbase's base directory. Used by Couchbase::Hostinit.
 *  $data_path:
     * _string_
     * Default is automatic on CentOS:6 and Windows 2008r2
-    * Full path to 'nodedata' in Couchbase's base directory
+    * Full path to 'nodedata' in Couchbase's base directory. Used by Couchbase::Hostinit.
 *  $try_sleep:
     * _integer_
     * Default is 6.
@@ -186,7 +186,7 @@ Deploy Couchbase
     * __WINDOWS__  
     * _string_
     * Default is 'couchbase400.iss'
-    * Name (without path) of the response file InstallShield uses to install Coucbbase headlessly.
+    * Name (without path) of the response file InstallShield uses to install Couchbase headlessly.
 *  $package_provider:
     * _string_
     * Default is automatically 'windows' or 'rpm'.
@@ -251,21 +251,62 @@ Define a bucket in Couchbase
 
 Run the couchbase-cli[.exe] command with arguments.
 
-* $action        = $title,
-* $creates       = undef,
-* $exec_cwd      = undef,
-* $exec_title    = undef,
-* $exec_loglevel = 'notice',
-* $onlyif        = undef,
-* $parameters    = '',
-* $refreshonly   = false,
-* $returns       = 0,
-* $tries         = $::couchbase::tries,
-* $try_sleep     = $::couchbase::try_sleep,
-* $unless        = undef,
-* $cli           = undef,
-* $username      = $::couchbase::cluster_username,
-* $password      = $::couchbase::cluster_password,
+* $action
+    * _string_
+    * Default is $title
+    * First argument given to cli.
+* $creates
+    * _path_
+    * Passed to 'creates' in the Exec[] resource. One or more file paths that the cli command is expected to create.
+* $exec_cwd
+    * _path_
+    * Default is base directory of Couchbase installation.
+    * Overrides 'cwd' in the Exec[] resource.
+* $exec_title
+    * _string_
+    * Default is "${title} ${action} ${parameters}"
+    * Overrides $title of the Exec[] resource.
+* $exec_loglevel
+    * _string_
+    * Default is 'notice'
+    * Overrides 'loglevel' in the Exec[] resource.
+* $onlyif
+    * _string_
+    * $action and $parameters of a Couchbase::Cli call which gets parsed and aassed to 'onlyif' of the Exec[] resource as a complete command..
+* $parameters
+    * _string_
+    * Arguments to run.
+* $refreshonly
+    * _bool_
+    * Default is false
+    * Overrides 'refreshonly' in the Exec[] resource.
+* $returns
+    * _integer_ (or list of integers)
+    * Default is 0
+    * Overrides 'returns' in the Exec[] resource.
+* $tries
+    * _integer_
+    * Default is $::couchbase::tries
+    * Overrides 'tries' in the Exec[] resource.
+* $try_sleep
+    * _integer_
+    * Default is $::couchbase::try_sleep
+    * Overrides 'tries' in the Exec[] resource.
+* $unless
+    * _string_
+    * $action and $parameters of a Couchbase::Cli call which gets parsed and aassed to 'onlyif' of the Exec[] resource as a complete command..
+* $cli
+    * _path_
+    * Default is automatically determined based on OS.
+    * Full path to the couchbase-cli[.exe] command.
+* $username
+    * _string_
+    * Default is $::couchbase::cluster_username,
+    * Username used to authenticate in the cluster.
+* $password
+    * _string_
+    * Default is $::couchbase::cluster_password,
+    * Password used to authenticate in the cluster.
 
 #### ::couchbase::hostinit
 
