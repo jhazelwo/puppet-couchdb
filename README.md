@@ -61,6 +61,45 @@ class our_profiles::my_example_profile {
 }
 ```
 
+Sending custom API calls via the Couchbase CLI:
+
+* This will run `couchbase-cli foo-bar --thing=qaz`
+
+```
+$thing='qaz'
+couchbase::cli {'do a thing':
+  action      => 'foo-bar',
+  parameters  => "--thing=${thing}",
+}
+```
+
+* List buckets `couchbase-cli bucket-list` (This isn't a great example because it does not need $parameters and the output only goes to the Puppet agent log.)
+
+```
+couchbase::cli {'bucket-list': }
+```
+
+* Enable email alerts:
+
+```
+couchbase::cli {'setting-alert':
+  parameters  => '--enable-email-alert=1',
+}
+```
+
+* Pass multiple params using join() and unique $title
+```
+$parameters = join([
+  "--retrieve-cert=${retrieve_cert}",
+  "--regenerate-cert='${regenerate_cert}'",
+], ' ')
+
+couchbase::cli {"manage certs for ${_site_name}":
+  action     => 'ssl-manage',
+  parameters => $parameters,
+}
+```
+
 ## Testing
 
 Unit tests:
