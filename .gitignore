@@ -1,0 +1,16 @@
+*.pyc
+.idea
+.*.sw?
+/pkg
+/spec/fixtures
+/.rspec_system
+/.vagrant
+/.bundle
+/vendor
+/Gemfile.lock
+/junit
+/log
+.yardoc
+coverage
+.DS_Store
+
