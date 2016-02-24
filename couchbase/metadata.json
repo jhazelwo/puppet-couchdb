@@ -1,31 +1,16 @@
 {
   "name": "couchbase",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "author": "jhazelwo@users.noreply.github.com",
-  "summary": "Summary here",
-  "license": "Apache-2.0",
+  "summary": "Deploy Couchbase via Puppet",
+  "license": "MIT",
   "source": "",
   "dependencies": [],
   "operatingsystem_support": [
     {
-      "operatingsystem": "Ubuntu",
-      "operatingsystemrelease": [
-        "12.04",
-        "14.04"
-      ]
-    },
-    {
-      "operatingsystem": "RedHat",
-      "operatingsystemrelease": [
-        "6",
-        "7"
-      ]
-    },
-    {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
         "6",
-        "7"
       ]
     }
   ]
