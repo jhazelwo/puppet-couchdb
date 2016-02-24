@@ -8,9 +8,13 @@ __A Puppet module for deploying [Couchbase Server](http://www.couchbase.com/nosq
 
 ## Function
 
-* Define your buckets as a hash (can use Hiera) and pass them to the Couchbase init class.
+This module will install Couchbase, create or join a cluster and manage buckets.
+
+Custom commands can be sent to the couchbase-cli[.exe] binary via the Couchbase::Cli resource. This is useful for handling items such as cluster settings for which there is not yet a specific class or defined type.
 
 ## Usage
+
+Define your buckets as a hash (can use Hiera) and pass them to the Couchbase class.
 
 * Define buckets in Hiera like this:
 
@@ -117,11 +121,11 @@ Deploy Couchbase
 *  $try_sleep:
     * _integer_
     * Default is 6.
-    * Passed to Exec[] calls in Couchbase::Cli.
+    * Passed to Exec[] calls in Couchbase::Cli. The high default values of $try_sleep and $tries are usually only needed during Couchbase installation because it takes some extra time after the package is installed before the daemon can start accepting API calls. Feel free to set both of these to 0 at any time but understand that it may take 2 or more Puppet agent (non-idempotent) runs before reaching convergence.
 *  $tries:
     * _integer_
     * Default is 9
-    * Passed to Exec[] calls in Couchbase::Cli.
+    * Passed to Exec[] calls in Couchbase::Cli. See also $try_sleep.
 *  $service_ensure:
     * _string_, (running|stopped)
     * Default is 'running'
@@ -277,3 +281,13 @@ _Should work on other operating systems that [Couchbase supports](http://develop
 ## Development
 
 * __Closed__. Not accepting issues or pull requests at this time. _2016.02-JH_
+
+#### TODO:
+
+* cbepctl.pp
+* settings.pp
+* acceptance tests
+* expand OS support to match Couchbase's supporting platforms.
+    * match spec tests
+* add back and integrate local source support in couchbase::package on toggle
+    * $use_wget = true|false
