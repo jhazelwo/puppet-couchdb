@@ -1,0 +1,7 @@
+fixtures:
+  forge_modules:
+    stdlib: "puppetlabs/stdlib"
+  #repositories:
+  #  stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
+  symlinks:
+    couchbase: "#{source_dir}"
