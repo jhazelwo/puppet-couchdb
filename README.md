@@ -83,6 +83,10 @@ For normal cases, you can just pass [OS] and it'll only tear it down if it doesn
     * __required__
     * _integer_
     * Cluster's RAM size in MB as int.
+*  $buckets:
+    * _hash_
+    * Default is empty hash (don't manage buckets)
+    * A hash of the buckets you want to manage. (see examples)
 *  $cluster_username:
     * _string_
     * Default is 'Administrator'
@@ -93,7 +97,7 @@ For normal cases, you can just pass [OS] and it'll only tear it down if it doesn
     * Cluster password, used in Couchbase::Cli
 *  $cluster_port:
     * _string_
-    * Default is 8091
+    * Default is '8091'
     * Cluster's port, used in Couchbase::Cli
 *  $cluster_host:
     * _string_
@@ -101,13 +105,12 @@ For normal cases, you can just pass [OS] and it'll only tear it down if it doesn
     * Cluster's host, used in Couchbase::Cli
 *  $index_path:
     * _string_
+    * Default is automatic on CentOS:6 and Windows 2008r2
     * Full path to 'nodeindex' in Couchbase's base directory
 *  $data_path:
     * _string_
+    * Default is automatic on CentOS:6 and Windows 2008r2
     * Full path to 'nodedata' in Couchbase's base directory
-*  $buckets:
-    * _hash_
-    * A hash of the buckets you want to manage. (see examples)
 *  $try_sleep:
     * _integer_
     * Default is 6.
@@ -124,7 +127,10 @@ For normal cases, you can just pass [OS] and it'll only tear it down if it doesn
     * _string_
     * Default is automatic on CentOS:6 and Windows 2008r2
     * Name of install file, like "couchbase-foo-bar.1.2.3.rpm"
-*  $package_ensure: (installed|absent) is passed to package declaration in Couchbase::Package
+*  $package_ensure:
+    * _string_, (installed|absent)
+    * Default is 'installed'
+    * Passed to package declaration in Couchbase::Package
 *  $package_temp_dir: Full path to a good temporary directory to house the install file. You should override this on Windows.
 *  $package_iss_file: __WINDOWS__ (optional override) Name (without path) of the response file InstallShield uses to install Coucbbase headlessly.
 *  $package_provider: (optional override) Passed to package declaration in Couchbase::Package and will select windows or rpm automatically.

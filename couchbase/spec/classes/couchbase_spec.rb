@@ -40,6 +40,7 @@ describe 'couchbase' do
           it { is_expected.to contain_exec('couchbase::hostinit') }
           it { is_expected.to contain_package('couchbase-server') }
           it { is_expected.to contain_exec('wget-couchbase') }
+          it { is_expected.to contain_wget__fetch('couchbase') }
           it { is_expected.to contain_service('couchbase-server') }
         end
       end
