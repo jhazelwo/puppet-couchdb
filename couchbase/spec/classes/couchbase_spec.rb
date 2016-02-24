@@ -30,6 +30,11 @@ describe 'couchbase' do
               'cluster_ramsize' => '512',
             }
           end
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_class('couchbase') }
+          it { is_expected.to contain_class('couchbase::package') }
+          it { is_expected.to contain_class('couchbase::service') }
+          it { is_expected.to contain_class('couchbase::hostinit') }
         end
       end
     end
