@@ -10,17 +10,55 @@
 #   Explanation of what this parameter affects and what it defaults to.
 #   e.g. "Specify one or more upstream ntp servers as an array."
 #
-class couchbase (
-  $package_name = $::couchbase::params::package_name,
-  $service_name = $::couchbase::params::service_name,
-) inherits ::couchbase::params {
+#
+class couchbase(
+  $package_file,
+  $cluster_ramsize,
 
-  # validate parameters here
+  $cluster_username = 'Administrator',
+  $cluster_password = 'password',
+  $cluster_port = '8091',
+  $cluster_host = 'localhost',
 
-  class { '::couchbase::install': } ->
-  class { '::couchbase::config': } ~>
-  class { '::couchbase::service': }
+  $index_path = '/opt/couchbase/nodeindex/',
+  $data_path = '/opt/couchbase/nodedata/',
 
-  contain '::couchbase::install'
-  contain '::couchbase::config'
+  $buckets = {},
+
+  $try_sleep = 6,
+  $tries = 9,
+
+  $service_ensure = 'running',
+
+  $package_ensure = 'installed',
+  $package_temp_dir = '/tmp/',
+  $package_iss_file = 'couchbase400.iss',
+  $package_provider = undef,
+  $package_install_options = undef,
+
+  $file_source_base = 'puppet:///modules/couchbase/',
+) {
+
+  $etc_path = $::kernel ? {
+    'windows' => 'C:/Program Files/Couchbase/Server/etc/',
+    'Linux'   => '/opt/couchbase/etc/',
+    default   => fail("[${name}] Unsupported OS!"),
+  }
+
+  # install Couchbase
+  contain '::couchbase::package'
+
+  # Manage the Couchbase daemon
+  contain '::couchbase::service'
+
+  # During CB install run couchbase-cli[.exe] node-init and cluster-init ...
+  contain '::couchbase::hostinit'
+
+  # Define order (lol)
+  Class['::couchbase::package'] ->
+    Class['::couchbase::service'] ->
+      Class['::couchbase::hostinit']
+
+  create_resources(::couchbase::bucket, $buckets)
+
 }
