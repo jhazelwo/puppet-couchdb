@@ -9,14 +9,14 @@ class couchbase::tests {
   class { '::couchbase':
     cluster_ramsize  => '512',
     buckets => {
-      'default' => { ensure => 'absent'},
+      'default' => { ensure => 'absent'}, #lint:ignore:ensure_first_param
       'prod'    => {
         ensure   => 'present',
         ramsize  => 123,
         flush    => 0,
         password => 'hunter2',
-      }
-    }
+      },
+    },
   }
 }
 

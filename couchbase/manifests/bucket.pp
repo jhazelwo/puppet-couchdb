@@ -6,6 +6,7 @@
 
 
 define couchbase::bucket (
+  $ensure               = 'present',
   $flush                = 0,
   $replica              = 0,
   $enable_index_replica = 0,
@@ -13,7 +14,6 @@ define couchbase::bucket (
   $port                 = 11211,
   $type                 = 'couchbase',
   $password             = undef,
-  $ensure               = 'present',
   $couchbase_etc        = $::couchbase::etc_path,
   ) {
 
