@@ -35,6 +35,7 @@ describe 'couchbase' do
           it { is_expected.to contain_class('couchbase::package') }
           it { is_expected.to contain_class('couchbase::service') }
           it { is_expected.to contain_class('couchbase::hostinit') }
+          it { is_expected.to contain_couchbase__cli('node-init') }
         end
       end
     end
