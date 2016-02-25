@@ -48,9 +48,9 @@ describe 'couchbase' do
           it { is_expected.to contain_wget__fetch('couchbase') }
           it { is_expected.to contain_service('couchbase-server') }
           it { is_expected.to contain_couchbase__bucket('test') }
-          it { is_expected.to contain_couchbase__cli('bucket test') }
+          it { is_expected.to contain_couchbase__cli('bucket-create test') }
           it { is_expected.to contain_couchbase__statefile('bucket-test') }
-          it { is_expected.to contain_exec('bucket test') }
+          it { is_expected.to contain_exec('bucket-create test') }
           it { is_expected.to contain_file('bucket-test') }
         end
       end

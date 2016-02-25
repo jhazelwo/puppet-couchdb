@@ -70,12 +70,12 @@ define couchbase::bucket (
     couchbase::statefile {"bucket-${title}":
       content   => $create_parameters,
       require   => Class['::couchbase::service'],
-      do_notify => Couchbase::Cli["bucket ${title}"],
+      do_notify => Couchbase::Cli["bucket-create ${title}"],
     }
-    couchbase::cli {"bucket ${title}":
+    couchbase::cli {"bucket-create ${title}":
       action      => 'bucket-create',
       parameters  => $create_parameters,
-      exec_title  => "bucket ${title}",
+      exec_title  => "bucket-create ${title}",
       unless      => "bucket-edit ${edit_parameters}",
       refreshonly => true,
     }
