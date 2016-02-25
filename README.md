@@ -73,13 +73,14 @@ couchbase::cli {'do a thing':
 }
 ```
 
-* List buckets `couchbase-cli bucket-list` (This isn't a great example because it does not need $parameters and the output only goes to the Puppet agent log.)
-
+* List buckets (This isn't a great example because it does not need $parameters and the output only goes to the Puppet agent log.)
+    * _Equivalent to `couchbase-cli bucket-list`_
 ```
 couchbase::cli {'bucket-list': }
 ```
 
-* Enable email alerts:
+* Enable email alerts.
+    * _Equivalent to `couchbase-cli setting-alert --enable-email-alert=1`_
 
 ```
 couchbase::cli {'setting-alert':
@@ -88,6 +89,7 @@ couchbase::cli {'setting-alert':
 ```
 
 * Pass multiple params using [join()](https://forge.puppetlabs.com/puppetlabs/stdlib#join) and unique $title
+    * _Equivalent to `couchbase-cli ssl-manage --retrieve-cert=... --regenerate-cert='...'`_
 ```
 $parameters = join([
   "--retrieve-cert=${retrieve_cert}",
@@ -364,6 +366,7 @@ _Should work on other operating systems that [Couchbase supports](http://develop
 
 #### TODO:
 
+* Template the iss files, pass installdir
 * cbepctl.pp
 * settings.pp
 * acceptance tests
