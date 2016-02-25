@@ -2,6 +2,18 @@
 
 __A Puppet module for deploying [Couchbase Server](http://www.couchbase.com/nosql-databases/couchbase-server) and [managing its buckets](http://developer.couchbase.com/documentation/server/4.0/introduction/intro.html).__
 
+####Table of Contents
+
+1. [Prerequisites](#Requires)
+2. [Module Function](#function)
+3. [Usage](#usage)
+    * [Examples](#Examples-for-sending-API-calls-via-the-Couchbase-CLI)
+4. [Testing](#testing)
+5. [Reference](#reference)
+5. [Limitations](#limitations)
+6. [Development](#development)
+
+
 ## Requires
 * [puppetlabs/stdlib](https://forge.puppetlabs.com/puppetlabs/stdlib)
 * [maestrodev/wget](https://forge.puppetlabs.com/maestrodev/wget)
@@ -310,18 +322,6 @@ Run the couchbase-cli[.exe] command with arguments.
     * Default is $::couchbase::cluster_password,
     * Password used to authenticate in the cluster.
 
-#### ::couchbase::hostinit
-
-Execute node-init and cluster-init on a new Couchbase installation.
-
-#### ::couchbase::package
-
-Install the Couchbase software.
-
-#### ::couchbase::service
-
-Manage the Couchbase daemon.
-
 #### ::couchbase::statefile
 
 Define local trigger files to pass state information between CouchDB and Puppet.
@@ -363,6 +363,10 @@ _Should work on other operating systems that [Couchbase supports](http://develop
 ## Development
 
 * __Closed__. Not accepting issues or pull requests at this time. _2016.02-JH_
+
+#### Known Bugs:
+
+1. Failed CLI calls that are generated from statefile changes lead to split-mind. For example, adding a bucket when there is no more room in the cluster will create a statefile without creating a bucket and manual detection and intervention is required.
 
 #### TODO:
 

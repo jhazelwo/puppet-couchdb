@@ -1,0 +1,22 @@
+couchbase::cluster_ramsize: 1024
+couchbase::buckets:
+  default:
+    # Remove the default bucket if present.
+    #  (Newer Couchbase releases do not create a default bucket during install.)
+    ensure: absent
+  prod:
+    # Create bucket named 'prod', disable flush, RAM size 123MB, with password.
+    ensure: present
+    ramsize: 123
+    flush: 0
+    password: hunter2
+  dev:
+    # Create bucket named 'dev', no password, flush enabled, 100MB RAM size.
+    ramsize: 100
+    flush: 1
+  test:
+    # Create bucket named 'test', bucket type is memcached, use defaults for everything else.
+    type: memcached
+  legacy:
+    # Remove bucket 'legacy' if it exists.
+    ensure: absent
