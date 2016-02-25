@@ -19,7 +19,6 @@ __A Puppet module for deploying [Couchbase Server](http://www.couchbase.com/nosq
     * [Known Bugs!](#known-bugs)
     * [TODO](#todo)
 
-
 ## Requires
 * [puppetlabs/stdlib](https://forge.puppetlabs.com/puppetlabs/stdlib)
 * [maestrodev/wget](https://forge.puppetlabs.com/maestrodev/wget)
