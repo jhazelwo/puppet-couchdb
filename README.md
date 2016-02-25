@@ -4,14 +4,20 @@ __A Puppet module for deploying [Couchbase Server](http://www.couchbase.com/nosq
 
 ####Table of Contents
 
-1. [Prerequisites](#Requires)
+1. [Prerequisites](#requires)
 2. [Module Function](#function)
 3. [Usage](#usage)
-    * [Examples](#Examples-for-sending-API-calls-via-the-Couchbase-CLI)
+    * [Examples](#examples-for-sending-api-calls-via-the-couchbase-cli)
 4. [Testing](#testing)
 5. [Reference](#reference)
-5. [Limitations](#limitations)
-6. [Development](#development)
+    * [::Couchbase](#couchbase)
+    * [::Couchbase::Bucket](#couchbasebucket)
+    * [::Couchbase::CLI](#couchbasecli)
+    * [::Couchbase::StateFile](#couchbasestatefile)
+6. [Limitations](#limitations)
+7. [Development](#development)
+    * [Known Bugs!](#known-bugs)
+    * [TODO](#todo)
 
 
 ## Requires
