@@ -27,6 +27,11 @@ describe 'couchbase' do
           let(:params) do
             {
               'cluster_ramsize' => '512',
+              'buckets' => {
+                'test' => {
+                  'ramsize' => '100',
+                }
+              }
             }
           end
           it { is_expected.to compile.with_all_deps }
