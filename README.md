@@ -211,7 +211,7 @@ Deploy Couchbase
     * Default is automatically 'windows' or 'rpm'.
     * Passed to the package declaration in Couchbase::Package.
 *  $package_install_options:
-    * _string_ or _list_
+    * _string_ or _array_
     * Default is automatic depending on OS.
     * Passed to the package declaration in Couchbase::Package
 *  $wget_source:
@@ -299,7 +299,7 @@ Run the couchbase-cli[.exe] command with arguments.
     * Default is false
     * Overrides 'refreshonly' in the Exec[] resource.
 * $returns
-    * _integer_ (or list of integers)
+    * _integer_ (or array of integers)
     * Default is 0
     * Overrides 'returns' in the Exec[] resource.
 * $tries
