@@ -30,6 +30,10 @@ describe 'couchbase' do
               'buckets' => {
                 'test' => {
                   'ramsize' => '100',
+                  'present' => true,
+                },
+                'legacy' => {
+                  'present' => false,
                 }
               }
             }
@@ -52,6 +56,11 @@ describe 'couchbase' do
           it { is_expected.to contain_couchbase__statefile('bucket-test') }
           it { is_expected.to contain_exec('bucket-create test') }
           it { is_expected.to contain_file('bucket-test') }
+          it { is_expected.to contain_couchbase__bucket('legacy') }
+          it { is_expected.to contain_couchbase__cli('bucket-delete legacy') }
+          it { is_expected.to contain_couchbase__statefile('bucket-legacy') }
+          it { is_expected.to contain_exec('bucket-delete legacy') }
+          it { is_expected.to contain_file('bucket-legacy') }
         end
       end
     end

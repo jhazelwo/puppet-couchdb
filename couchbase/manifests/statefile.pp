@@ -9,17 +9,20 @@
 #
 define couchbase::statefile (
   $content    = '',
-  $ensure     = 'file',
+  $present    = true,
   $do_notify  = Couchbase::Cli[$title],
   $etc_path   = $::couchbase::etc_path,
   $msg_prefix = undef,
   ) {
+  unless(is_bool($present)) {
+    fail("[${name}] Param 'present' is not BOOL (true|false).")}
+
   $default_msg_prefix = "# Stafefile for ${title}, do not edit! \n"
   $_prefix = pick($msg_prefix, $default_msg_prefix)
 
   $_file_path = "${etc_path}.${title}"
 
-  if $ensure == 'absent' {
+  if $present == false {
 
     file { $title:
       ensure => absent,
@@ -29,7 +32,7 @@ define couchbase::statefile (
   } else {
 
     file { $title:
-      ensure    => $ensure,
+      ensure    => file,
       path      => $_file_path,
       mode      => '0600',
       content   => "${_prefix} ${content}",

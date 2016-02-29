@@ -36,14 +36,15 @@ Define your buckets as a hash (can use Hiera) and pass them to the Couchbase cla
 * Define buckets in Hiera like this:
 
 ```
+couchbase::cluster_ramsize: 512
 couchbase::buckets:
   default:
     # Remove the default bucket if present.
     #  (Newer Couchbase releases do not create a default bucket during install.)
-    ensure: absent
+    present: false
   prod:
     # Create bucket named 'prod', disable flush, RAM size 123MB, with password.
-    ensure: present
+    present: true
     ramsize: 123
     flush: 0
     password: hunter2
@@ -56,7 +57,7 @@ couchbase::buckets:
     type: memcached
   legacy:
     # Remove bucket 'legacy' if it exists.
-    ensure: absent
+    present: false
 ```
 
 * __Or__ define buckets with a hash like this:
@@ -64,11 +65,10 @@ couchbase::buckets:
 ```
 class our_profiles::my_example_profile {
   class { '::couchbase':
-    cluster_ramsize  => '512',
+    cluster_ramsize  => 512,
     buckets => {
-      'legacy' => { ensure => 'absent'},
+      'legacy' => { present => false },
       'prod'   => {
-        ensure   => 'present',
         ramsize  => 123,
         flush    => 0,
         password => 'hunter2',
@@ -228,11 +228,10 @@ Define a bucket in Couchbase
 * $title
     * _string_
     * Name of the bucket.
-* $ensure
-    * _string_ (present|absent)
-    * Default is 'present'
-    * Whether to create or remove bucket named $title. Will __delete__ bucket if set to 'absent', but any other value will translate to 'present'.
-    * TODO: May be replaced with present=>'true|false'
+* $present
+    * _boolean_ (true|false)
+    * Default is _true_
+    * Whether to create or remove bucket named $title. Will __delete__ bucket if set to _false_.
 * $flush
     * _integer_ (but treated as string)
     * Default is 0
@@ -338,11 +337,10 @@ Define local trigger files to pass state information between CouchDB and Puppet.
     * _string_
     * Default is ''
     * Text to put in the state file.
-* $ensure:
-    * _string_ ('file'|'absent')
-    * Default is 'file'
-    * Manage or remove the state file. Will delete the file if set to 'absent', but any other value will be treated as 'file'.
-    * TODO: May be replaced with present=>'true|false'
+* $present:
+    * _boolean_ (true|false)
+    * Default is _true_
+    * Manage or remove the state file.
 * $do_notify:
     * _resource_
     * Default is Couchbase::Cli[$title]

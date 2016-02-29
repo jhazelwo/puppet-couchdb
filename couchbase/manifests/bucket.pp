@@ -4,9 +4,8 @@
 # BUG: if bucket-create fails the statefile will remain and block future
 # attempts to create the bucket until the statefile is manually removed.
 
-
 define couchbase::bucket (
-  $ensure               = 'present',
+  $present              = true,
   $flush                = 0,
   $replica              = 0,
   $enable_index_replica = 0,
@@ -14,14 +13,9 @@ define couchbase::bucket (
   $port                 = 11211,
   $type                 = 'couchbase',
   $password             = undef,
-  $couchbase_etc        = $::couchbase::etc_path,
   ) {
-
-  $_couchbase_etc = $::kernel ? {
-    'windows' => 'C:/Program Files/Couchbase/Server/etc/',
-    'Linux'   => '/opt/couchbase/etc/',
-    default   => fail("[${name}] Unsupported OS!"),
-  }
+  unless(is_bool($present)) {
+    fail("[${name}] Param 'present' is not BOOL (true|false).")}
 
   if $password { $_password = "--bucket-password=${password}" }
     else { $_password = '' }
@@ -53,10 +47,10 @@ define couchbase::bucket (
     $_flush,
   ], ' ')
 
-  if $ensure == 'absent' {
+  if $present == false {
 
     couchbase::statefile {"bucket-${title}":
-      ensure => absent,
+      present => false,
     }
     couchbase::cli {"bucket-delete ${title}":
       action     => 'bucket-delete',
@@ -69,6 +63,7 @@ define couchbase::bucket (
 
     couchbase::statefile {"bucket-${title}":
       content   => $create_parameters,
+      present   => true,
       require   => Class['::couchbase::service'],
       do_notify => Couchbase::Cli["bucket-create ${title}"],
     }

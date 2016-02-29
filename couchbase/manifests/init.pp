@@ -43,7 +43,7 @@ class couchbase(
   $etc_path = $::kernel ? {
     'windows' => 'C:/Program Files/Couchbase/Server/etc/',
     'Linux'   => '/opt/couchbase/etc/',
-    default   => fail("[${name}] Unsupported OS!"),
+    default   => fail("[${name}] ${::kernel} not supported!"),
   }
 
   # install Couchbase
