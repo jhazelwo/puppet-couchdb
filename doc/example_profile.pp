@@ -7,10 +7,9 @@ class our_profiles::my_example_profile {
 
     buckets => {
 
-      'legacy' => { ensure => 'absent'},
+      'legacy' => { present => false },
 
       'prod'   => {
-        ensure   => 'present',
         ramsize  => 123,
         flush    => 0,
         password => 'hunter2',

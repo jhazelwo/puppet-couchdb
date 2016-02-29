@@ -11,10 +11,7 @@ class our_profiles::profile_for_couchbase_on_debian7 {
 
     buckets => {
 
-      'legacy' => { ensure => 'absent'},
-
       'prod'   => {
-        ensure   => 'present',
         ramsize  => 123,
         flush    => 0,
         password => 'hunter2',
