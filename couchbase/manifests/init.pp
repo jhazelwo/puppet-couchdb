@@ -37,8 +37,15 @@ class couchbase(
   $package_install_options = undef,
   $wget_source = undef,
 
+  $use_local_source = false,
   $file_source_base = 'puppet:///modules/couchbase/',
 ) {
+
+  $base_dir = $::kernel ? {
+    'windows' => 'C:/Program Files/Couchbase/Server/',
+    'Linux'   => '/opt/couchbase/',
+    default   => fail("[${name}] ${::kernel} not supported!"),
+  }
 
   $etc_path = $::kernel ? {
     'windows' => 'C:/Program Files/Couchbase/Server/etc/',

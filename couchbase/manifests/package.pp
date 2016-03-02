@@ -6,8 +6,9 @@ class couchbase::package(
   $install_options  = $::couchbase::package_install_options,
   $iss_file         = $::couchbase::package_iss_file,
   $package_ensure   = $::couchbase::package_ensure,
-  $file_source_base = $::couchbase::file_source_base,
   $wget_source      = $::couchbase::wget_source,
+  $use_local_source = $::couchbase::use_local_source,
+  $file_source_base = $::couchbase::file_source_base,
 ){
   include '::wget'
 
